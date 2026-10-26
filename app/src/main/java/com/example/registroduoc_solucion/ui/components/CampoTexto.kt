@@ -11,23 +11,37 @@ import androidx.compose.ui.text.input.KeyboardType
 
 // [14] COMPONENTE REUTILIZABLE: un campo de texto que ya sabe mostrar su error.
 // No guarda nada: recibe el valor y AVISA los cambios con onChange (state hoisting).
+// [27] COMPONENTE REUTILIZABLE (v2): el mismo campo de la v1, ahora con texto de AYUDA y PREFIJO.
+// Sigue sin guardar nada: recibe el valor y AVISA los cambios con onChange (state hoisting).
 @Composable
 fun CampoTexto(
-    valor: String,                                  // texto que se muestra
-    error: String?,                                 // mensaje de error, o null si está bien
-    label: String,                                  // etiqueta del campo ("Nombre", "Correo"...)
-    onChange: (String) -> Unit,                     // [15] función que se llama cada vez que el usuario escribe
-    tipoTeclado: KeyboardType = KeyboardType.Text   // [16] teclado a mostrar (por defecto, texto normal)
+    valor: String,
+    error: String?,
+    label: String,
+    onChange: (String) -> Unit,
+    tipoTeclado: KeyboardType = KeyboardType.Text,
+    ayuda: String? = null,       // NUEVO v2: texto gris bajo el campo cuando NO hay error
+    prefijo: String? = null      // NUEVO v2: texto fijo antes de lo escrito (ej: "+56 ")
 ) {
     OutlinedTextField(
         value = valor,
         onValueChange = onChange,
         label = { Text(label) },
-        singleLine = true,                          // el campo ocupa una sola línea
-        isError = error != null,                    // [17] si hay error, el borde y la etiqueta se ponen rojos
+        singleLine = true,
+        isError = error != null,
+        // [28] Bajo el campo: si hay error se muestra el error (rojo); si no, la ayuda (gris).
         supportingText = {
-            // ?.let { } solo se ejecuta si error NO es null
-            error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+            if (error != null) {
+                Text(error, color = MaterialTheme.colorScheme.error)
+            } else if (ayuda != null) {
+                Text(ayuda)
+            }
+        },
+        // [29] prefix espera "una función que dibuja" o null. Si no hay prefijo, se entrega null y no se dibuja nada.
+        prefix = if (prefijo != null) {
+            { Text(prefijo) }
+        } else {
+            null
         },
         keyboardOptions = KeyboardOptions(keyboardType = tipoTeclado),
         modifier = Modifier.fillMaxWidth()

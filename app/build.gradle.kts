@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.material3)
     implementation(libs.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -53,4 +54,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    // ---- Agregadas para la app Registro DUOC ----
+    implementation(libs.androidx.lifecycle.viewmodel.compose)   // viewModel() dentro de Compose
+    implementation(libs.androidx.navigation.compose)
+
+
+    // ---- Agregada en la v2.0 ----
+    implementation(libs.androidx.compose.material.icons.core)   // Icons.AutoMirrored.Filled.ArrowBack, Icons.Filled.CheckCircle
+
 }

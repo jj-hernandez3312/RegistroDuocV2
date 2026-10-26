@@ -6,10 +6,19 @@ package com.example.registroduoc_solucion.model
 data class FormularioErrores(
     val nombre: String? = null,
     val correo: String? = null,
+    val edad: String? = null,            // NUEVO v2
+    val carrera: String? = null,         // NUEVO v2
+    val telefono: String? = null,        // NUEVO v2 (solo se revisa si activó las notificaciones)
     val aceptaTerminos: String? = null
 ) {
-    // [2] Función de ayuda: devuelve true si AL MENOS UN campo tiene error.
+    // [7] Cuenta cuántos campos tienen error: listOf(...) junta los 6 casilleros en una lista
+    // y count { it != null } cuenta los que tienen mensaje. Lo usa el Snackbar ("Revisa 3 campos…").
+    fun cantidad(): Int {
+        return listOf(nombre, correo, edad, carrera, telefono, aceptaTerminos).count { it != null }
+    }
+
+    // [8] Reutiliza cantidad(): si hay 1 o más errores, el formulario NO es válido.
     fun hayErrores(): Boolean {
-        return nombre != null || correo != null || aceptaTerminos != null
+        return cantidad() > 0
     }
 }
