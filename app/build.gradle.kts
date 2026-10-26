@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.registroduoc_solucion"
+    namespace = "cl.duoc.perfil"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.registroduoc_solucion"
+        applicationId = "cl.duoc.perfil"
         minSdk = 24
         targetSdk = 37
         versionCode = 1
@@ -22,8 +22,7 @@ android {
     buildTypes {
         release {
             optimization {
-                enable = true
-                packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
+                enable = false
             }
         }
     }
@@ -45,8 +44,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.material3)
-    implementation(libs.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
@@ -54,12 +52,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    // ---- Agregadas para la app Registro DUOC ----
-    implementation(libs.androidx.lifecycle.viewmodel.compose)   // viewModel() dentro de Compose
-    implementation(libs.androidx.navigation.compose)
 
-
-    // ---- Agregada en la v2.0 ----
-    implementation(libs.androidx.compose.material.icons.core)   // Icons.AutoMirrored.Filled.ArrowBack, Icons.Filled.CheckCircle
-
+    // ---- Agregadas para la app Mi Perfil DUOC ----
+    implementation(libs.androidx.lifecycle.viewmodel.compose)    // viewModel() dentro de Compose
+    implementation(libs.androidx.datastore.preferences)          // DataStore: guardar datos simples en el teléfono
+    implementation(libs.androidx.compose.material.icons.core)    // Íconos (check, advertencia, rostro)
 }
